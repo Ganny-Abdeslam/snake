@@ -49,7 +49,10 @@ public class Main extends Application {
 
     public void control(Scene scene){
         scene.setOnKeyPressed(event -> {
-            this.actualKey = event.getCode();
+            if(event.getCode().equals(KeyCode.UP) || event.getCode().equals(KeyCode.DOWN) ||
+                    event.getCode().equals(KeyCode.LEFT) || event.getCode().equals(KeyCode.RIGHT)){
+                this.actualKey = event.getCode();
+            }
         });
     }
 
