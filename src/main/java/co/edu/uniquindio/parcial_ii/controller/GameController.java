@@ -46,13 +46,14 @@ public class GameController {
         for (Snake snake: snakes) {
             int positionX = snake.getPositionX();
             int positionY = snake.getPositionY();
-            generateSnake(positionX, positionY);
+            generateSnake(positionX, positionY, this.count);
         }
     }
 
     public void reload(ArrayList<Snake> snakes, int x, int y){
         int positionAnteriorX = 0, positionAnteriorY = 0;
         int positionX, positionY;
+        int i = 1;
         boolean condition = true;
         boolean aux = false;
 
@@ -75,7 +76,7 @@ public class GameController {
                 aux = snake.toEat(this.texts.get(positionY).get(positionX));
                 snake.defeat(this.texts.get(positionY).get(positionX));
 
-                generateSnake(positionX, positionY);
+                generateSnake(positionX, positionY, i);
                 this.texts.get(positionY).get(positionX).setFill(Color.RED);
 
                 condition = false;
@@ -86,19 +87,21 @@ public class GameController {
                 positionY = snake.getPositionY();
 
                 snake.setPosition(positionAnteriorX, positionAnteriorY);
-                generateSnake(positionAnteriorX, positionAnteriorY);
+                generateSnake(positionAnteriorX, positionAnteriorY, i);
 
                 positionAnteriorX = positionX;
                 positionAnteriorY = positionY;
 
             }
+
+            i++;
         }
 
         if(aux){
+            this.count += 1;
             snakes.add(new Snake(positionAnteriorX, positionAnteriorY));
-            generateSnake(positionAnteriorX, positionAnteriorY);
+            generateSnake(positionAnteriorX, positionAnteriorY, this.count);
             food();
-            count += 1;
         }
     }
 
@@ -115,7 +118,7 @@ public class GameController {
         food();
     }
 
-    public void generateSnake(int x, int y){
+    public void generateSnake(int x, int y, int count){
         this.texts.get(y).get(x).setText(""+count);
         this.texts.get(y).get(x).setFill(Color.BLACK);
     }
