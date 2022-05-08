@@ -109,7 +109,7 @@ public class GameController {
         int a = generateRandomNumbers(0, 16);
         int b = generateRandomNumbers(0, 16);
 
-        if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK)){
+        if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK) || !this.texts.get(b).get(a).getFill().equals(Color.RED)){
             this.texts.get(b).get(a).setText("-1");
             this.texts.get(b).get(a).setFill(Color.RED);
 
@@ -126,5 +126,9 @@ public class GameController {
     public void remove(int x, int y){
         this.texts.get(y).get(x).setText("x");
         this.texts.get(y).get(x).setFill(Color.WHITE);
+    }
+
+    public int getCount(){
+        return this.count;
     }
 }

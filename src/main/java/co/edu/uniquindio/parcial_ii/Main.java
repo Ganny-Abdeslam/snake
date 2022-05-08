@@ -2,14 +2,19 @@ package co.edu.uniquindio.parcial_ii;
 
 import co.edu.uniquindio.parcial_ii.controller.GameController;
 import co.edu.uniquindio.parcial_ii.logic.Snake;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.ArrayList;
+
+import static co.edu.uniquindio.parcial_ii.logic.utils.Keyboard.keyboardInput;
 
 public class Main extends Application {
 
@@ -23,7 +28,7 @@ public class Main extends Application {
         pane.setStyle("-fx-background-color:#2379a6");
 
         Scene scene = new Scene(pane, 600, 600);
-        stage.setTitle("Culebrita");
+        stage.setTitle("Snake");
         stage.setScene(scene);
 
         GameController gameController = new GameController(pane, stage);
@@ -31,30 +36,20 @@ public class Main extends Application {
         gameController.init(this.snakes);
         stage.show();
 
-        control(gameController, scene);
+       control(scene);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(260), e -> run(gameController)));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
-    public void control(GameController gameController, Scene scene){
+    public void run(GameController gameController){
+        keyboardInput(gameController, this.actualKey, this.snakes);
+    }
+
+    public void control(Scene scene){
         scene.setOnKeyPressed(event -> {
             this.actualKey = event.getCode();
-
-            if(this.actualKey.equals(KeyCode.LEFT)){
-
-                gameController.reload(this.snakes, -1, 0);
-
-            }else if(this.actualKey.equals(KeyCode.RIGHT)){
-
-                gameController.reload(this.snakes, 1, 0);
-
-            }else if(this.actualKey.equals(KeyCode.UP)){
-
-                gameController.reload(this.snakes, 0, -1);
-
-            }else if(this.actualKey.equals(KeyCode.DOWN)){
-
-                gameController.reload(this.snakes, 0, 1);
-
-            }
         });
     }
 
