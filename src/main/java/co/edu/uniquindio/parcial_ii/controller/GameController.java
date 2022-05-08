@@ -109,7 +109,7 @@ public class GameController {
         int a = generateRandomNumbers(0, 16);
         int b = generateRandomNumbers(0, 16);
 
-        if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK) || !this.texts.get(b).get(a).getFill().equals(Color.RED)){
+        if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK) && !this.texts.get(b).get(a).getFill().equals(Color.RED)){
             this.texts.get(b).get(a).setText("-1");
             this.texts.get(b).get(a).setFill(Color.RED);
 
