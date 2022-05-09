@@ -15,11 +15,16 @@ public class GameController {
     final private Pane pane;
     private ArrayList<ArrayList<Text>> texts;
     private int count = 1;
+    private Text textPoint;
 
     public GameController(Pane pane, Stage stage) {
         this.pane = pane;
         this.stage = stage;
         this.texts = new ArrayList<>();
+        this.textPoint = new Text(510, 560, count*100+"");
+
+        Text textPoints = new Text(500, 540, "Points");
+        this.pane.getChildren().add(textPoints);
     }
 
     public void init(ArrayList<Snake> snakes){
@@ -40,6 +45,8 @@ public class GameController {
         reload(snakes);
         food();
 
+        this.pane.getChildren().add(this.textPoint);
+        this.textPoint.setFill(Color.RED);
     }
 
     public void reload(ArrayList<Snake> snakes){
@@ -101,6 +108,7 @@ public class GameController {
             this.count += 1;
             snakes.add(new Snake(positionAnteriorX, positionAnteriorY));
             generateSnake(positionAnteriorX, positionAnteriorY, this.count);
+            this.textPoint.setText(count*100+"");
             food();
         }
     }
@@ -109,11 +117,13 @@ public class GameController {
         int a = generateRandomNumbers(0, 16);
         int b = generateRandomNumbers(0, 16);
 
-        if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK) && !this.texts.get(b).get(a).getFill().equals(Color.RED)){
-            this.texts.get(b).get(a).setText("-1");
-            this.texts.get(b).get(a).setFill(Color.RED);
+        if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK)){
+            if(!this.texts.get(b).get(a).getFill().equals(Color.RED)){
+                this.texts.get(b).get(a).setText("-1");
+                this.texts.get(b).get(a).setFill(Color.RED);
 
-            return;
+                return;
+            }
         }
         food();
     }
