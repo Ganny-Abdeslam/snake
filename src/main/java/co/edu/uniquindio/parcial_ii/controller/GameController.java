@@ -119,7 +119,7 @@ public class GameController {
 
         if(!this.texts.get(b).get(a).getFill().equals(Color.BLACK)){
             if(!this.texts.get(b).get(a).getFill().equals(Color.RED)){
-                this.texts.get(b).get(a).setText("-1");
+                this.texts.get(b).get(a).setText("\uD83C\uDF4E");
                 this.texts.get(b).get(a).setFill(Color.RED);
 
                 return;
